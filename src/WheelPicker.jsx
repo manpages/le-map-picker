@@ -3,10 +3,17 @@ var React = require('react')
 var WheelPicker = React.createClass({
   getInitialState() {
     return {
-      speed: 5,
+      speed: 0,
       top: 0,
       items: [],
+      spinning: false,
     }
+  },
+
+  toggleSpin() {
+    var spinning = this.state.spinning
+    var speed = spinning ? 0 : 50
+    this.setState({speed, spinning: !spinning})
   },
 
   movePosition() {
@@ -14,9 +21,21 @@ var WheelPicker = React.createClass({
     this.setState({top})
   },
 
+  handleShortcuts: function handleShortcuts(e) {
+    if (document.activeElement.tagName !== 'BODY') return
+
+    if (e.keyCode == '32') //space
+      this.toggleSpin()
+  },
+
   componentDidMount() {
+    document.addEventListener('keydown', this.handleShortcuts)
     this.setItems(this.props.items)
     setInterval(this.movePosition, 10)
+  },
+
+  componentWillUnmount: function componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleShortcuts)
   },
 
   setItems(propsItems) {
