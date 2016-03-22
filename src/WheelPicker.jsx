@@ -10,30 +10,35 @@ var WheelPicker = React.createClass({
       top: 0,
       items: [],
       spinning: false,
+      spinningStartTs: undefined,
     }
   },
 
   toggleSpin() {
     var spinning = !this.state.spinning
-    var speed = spinning ? 50 : 0
+    var spinningStartTs = spinning ? new Date().getTime() : undefined
+    var speed = spinning ? 5 : 0
     var currentIndex = this.getCurrentIndex()
     var top = currentIndex *-this.state.elemH
-
-    this.setState({speed, spinning, top})
+    this.setState({speed, spinning, spinningStartTs, top}, this.handleSpinning)
   },
 
-  movePosition() {
-    if (this.state.items.length == 1)
-      return
+  handleSpinning() {
+    if ( !this.isMounted() ) return
+    if ( !this.state.spinning ) return
+    if (this.state.items.length == 1) return
 
     var elemH = this.state.elemH
     var length = this.state.items.length -1
 
-    var top = this.state.top -this.state.speed
+    var timestamp = new Date().getTime() -this.state.spinningStartTs
+    var top = this.state.speed *timestamp
     var height = elemH*length
 
     if (top < -height) top += height
     this.setState({top})
+
+    setTimeout(this.handleSpinning, 20)
   },
 
   handleShortcuts: function handleShortcuts(e) {
@@ -49,13 +54,11 @@ var WheelPicker = React.createClass({
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleShortcuts)
-    this.movePositionInterval = setInterval(this.movePosition, 10)
     this.setItems(this.props.items, this.toggleSpin)
   },
 
   componentWillUnmount: function componentWillUnmount() {
     document.removeEventListener('keydown', this.handleShortcuts)
-    clearInterval(this.movePositionInterval)
   },
 
   setItems(propsItems, cb) {
