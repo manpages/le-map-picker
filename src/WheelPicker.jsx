@@ -15,9 +15,12 @@ var WheelPicker = React.createClass({
   toggleSpin() {
     var spinning = !this.state.spinning
     var speed = spinning ? 50 : 0
+    var currentIndex = this.getCurrentIndex()
+    var top = currentIndex *-this.state.elemH
+
     if ( !spinning )
-      this.props.selectedIndexCallback(this.getCurrentIndex())
-    this.setState({speed, spinning})
+      this.props.selectedIndexCallback(currentIndex)
+    this.setState({speed, spinning, top})
   },
 
   movePosition() {
