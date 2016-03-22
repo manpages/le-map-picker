@@ -15,6 +15,10 @@ var WheelPickerViewer = React.createClass({
     return {items, selectedItems: []}
   },
 
+  componentDidMount() {
+    document.body.style.backgroundColor = 'black'
+  },
+
   handleSelection(selectedIndex) {
     var items = this.state.items.slice(0)
     var selected = items[selectedIndex]
