@@ -2,6 +2,10 @@ var React = require('react')
 var WheelPicker = require('./WheelPicker.jsx')
 
 var WheelPickerViewer = React.createClass({
+  getInitialState() {
+    return {selectedIndex: undefined}
+  },
+
   getSrcPath(name) {
     return '/src/images/400px-' +name +'.jpg'
   },
@@ -41,10 +45,16 @@ var WheelPickerViewer = React.createClass({
     return (
       <div>
         <div>
-          Le Wheel Picker
+          Le Map Picker
         </div>
         <div>
-          <WheelPicker items={items} />
+          Selected Map: {this.state.selectedIndex !== undefined ? items[this.state.selectedIndex].name : undefined}
+        </div>
+        <div>
+          <WheelPicker
+            items={items}
+            selectedIndexCallback={(selectedIndex)=>{this.setState({selectedIndex})}}
+            />
         </div>
       </div>
     )

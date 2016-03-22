@@ -3,6 +3,8 @@ var React = require('react')
 var WheelPicker = React.createClass({
   getInitialState() {
     return {
+      elemH: 500,
+      imageH: 400,
       speed: 0,
       top: 0,
       items: [],
@@ -11,9 +13,11 @@ var WheelPicker = React.createClass({
   },
 
   toggleSpin() {
-    var spinning = this.state.spinning
-    var speed = spinning ? 0 : 50
-    this.setState({speed, spinning: !spinning})
+    var spinning = !this.state.spinning
+    var speed = spinning ? 50 : 0
+    if ( !spinning )
+      this.props.selectedIndexCallback(this.getCurrentIndex())
+    this.setState({speed, spinning})
   },
 
   movePosition() {
@@ -42,12 +46,18 @@ var WheelPicker = React.createClass({
     this.setState({items: propsItems.slice(0)})
   },
 
+  getCurrentIndex() {
+    var length = this.state.items.length
+    var height = this.state.elemH *length
+    var position = this.state.top %height
+    return Math.round(position /height*length) %length
+  },
+
   render() {
-    var elemH = 500
     var parentStyle = {
       position: 'relative',
-      height: elemH,
-      width: 400,
+      height: this.state.elemH,
+      width: this.state.imageH,
 
       overflow: 'hidden',
       border: 'solid red 1px',
@@ -55,8 +65,8 @@ var WheelPicker = React.createClass({
     }
     var itemStyle = {
       position: 'absolute',
-      height: elemH -8,
-      width: 400,
+      height: this.state.elemH -8,
+      width: this.state.imageH,
 
       border: 'solid blue 1px',
       backgroundColor: '#004',
@@ -67,9 +77,11 @@ var WheelPicker = React.createClass({
       height: 20,
     }
     var imgStyle = {
-      width: 400,
+      width: this.state.imageH,
       height: 'auto',
     }
+
+    var elemH = this.state.elemH
     return (
       <div style={parentStyle}>
         {
