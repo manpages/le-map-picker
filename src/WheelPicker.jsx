@@ -43,7 +43,7 @@ var WheelPicker = React.createClass({
       this.toggleSpin()
 
     if (e.keyCode == '13') //enter
-      if (this.state.items.length > 0)
+      if (this.state.items.length > 0 && !this.state.spinning )
         this.props.selectedIndexCallback(this.getCurrentIndex())
   },
 
