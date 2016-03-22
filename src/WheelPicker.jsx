@@ -22,6 +22,9 @@ var WheelPicker = React.createClass({
   },
 
   movePosition() {
+    if (this.state.items.length == 1)
+      return
+
     var elemH = this.state.elemH
     var length = this.state.items.length -1
 
@@ -102,12 +105,13 @@ var WheelPicker = React.createClass({
     }
 
     var elemH = this.state.elemH
+    var length = this.state.items.length
     return (
       <div style={parentStyle}>
         {
           this.state.items.map((x, i)=>{
 
-            var top = (this.state.top +(i+1)*elemH) %(this.state.items.length *elemH)  -elemH
+            var top = (this.state.top +(i+1)*elemH) %(length *elemH) +(length == 1 ? 0: -elemH)
             return (
               <div key={i}>
 
