@@ -9,7 +9,7 @@ var WheelPicker = React.createClass({
             return (
               <div key={i}>
                 <div>{x.name}</div>
-                <img src={'/src/images/400px-' +x.src +'.jpg'} />
+                <img src={x.src} />
               </div>
             )
           })

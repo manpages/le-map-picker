@@ -2,34 +2,38 @@ var React = require('react')
 var WheelPicker = require('./WheelPicker.jsx')
 
 var WheelPickerViewer = React.createClass({
+  getSrcPath(name) {
+    return '/src/images/400px-' +name +'.jpg'
+  },
+
   render() {
     var items = [
       {
-        src: 'Dusk_Towers',
+        src: this.getSrcPath('Dusk_Towers'),
         name: 'Dusk Towers'
       },
       {
-        src: 'Orbital_Shipyard',
+        src: this.getSrcPath('Orbital_Shipyard'),
         name: 'Orbital Shipyard'
       },
       {
-        src: 'Prion_Terraces',
+        src: this.getSrcPath('Prion_Terraces'),
         name: 'Prion Terraces'
       },
       {
-        src: 'Ulrena',
+        src: this.getSrcPath('Ulrena'),
         name: 'Ulrena'
       },
       {
-        src: 'Central_Protocol',
+        src: this.getSrcPath('Central_Protocol'),
         name: 'Central Protocol'
       },
       {
-        src: 'Lerilak_Crest',
+        src: this.getSrcPath('Lerilak_Crest'),
         name: 'Lerilak Crest'
       },
       {
-        src: 'Ruins_of_Seras',
+        src: this.getSrcPath('Ruins_of_Seras'),
         name: 'Ruins of Seras'
       }
     ]
