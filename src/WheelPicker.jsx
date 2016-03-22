@@ -43,12 +43,13 @@ var WheelPicker = React.createClass({
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleShortcuts)
+    this.movePositionInterval = setInterval(this.movePosition, 10)
     this.setItems(this.props.items)
-    setInterval(this.movePosition, 10)
   },
 
   componentWillUnmount: function componentWillUnmount() {
     document.removeEventListener('keydown', this.handleShortcuts)
+    clearInterval(this.movePositionInterval)
   },
 
   setItems(propsItems) {
