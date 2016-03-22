@@ -20,31 +20,57 @@ var WheelPicker = React.createClass({
   },
 
   setItems(propsItems) {
-    var items =
-      propsItems.map((x, i)=>{
-        return (
-          <div key={i}>
-            <div>{x.name}</div>
-            <img src={x.src} />
-          </div>
-        )
-      })
-    this.setState({items})
+    this.setState({items: propsItems.slice(0)})
   },
 
   render() {
-    var elemH = 400
+    var elemH = 500
+    var parentStyle = {
+      position: 'relative',
+      height: elemH,
+      width: 400,
+
+      overflow: 'hidden',
+      border: 'solid red 1px',
+
+    }
+    var itemStyle = {
+      position: 'absolute',
+      height: elemH -8,
+      width: 400,
+
+      border: 'solid blue 1px',
+      backgroundColor: '#004',
+    }
+    var textStyle = {
+      color: 'cyan',
+      fontWeight: 'bold',
+      height: 20,
+    }
+    var imgStyle = {
+      width: 400,
+      height: 'auto',
+    }
     return (
-      <div style={{position: 'relative', height: elemH, width: elemH, overflow: 'hidden'}}>
+      <div style={parentStyle}>
         {
           this.state.items.map((x, i)=>{
-            var s = {
-              position: 'absolute',
-              top: (this.state.top +(i+1)*elemH) %(this.state.items.length *elemH)  -elemH
-            }
+
+            var top = (this.state.top +(i+1)*elemH) %(this.state.items.length *elemH)  -elemH
             return (
-              <div key={i} style={s}>
-                {x}
+              <div key={i}>
+
+                <div style={Object.assign({top}, itemStyle)}>
+                  <span style={{height: '100%', display: 'inline-table'}}>
+                    <span style={{display: 'table-cell', verticalAlign: 'middle', textAlign: 'center'}}>
+
+                      <div style={textStyle}>{x.name}</div>
+                      <img style={imgStyle} src={x.src} />
+
+                    </span>
+                  </span>
+
+                </div>
               </div>
             )
           })
