@@ -29,19 +29,22 @@ var WheelPickerViewer = React.createClass({
   },
 
   render() {
+
     return (
-      <div>
-        <div>
-          Le Map Picker
-        </div>
-        <div>
-          selectedItems: {this.state.selectedItems.map((x)=>x.name +', ')}
-        </div>
-        <div>
-          <WheelPicker
-            items={this.state.items}
-            selectedIndexCallback={this.handleSelection}
-            />
+      <div style={{textAlign: 'center'}}>
+        <div style={{display: 'inline-block'}}>
+          <div>
+            Le Map Picker
+          </div>
+          <div>
+            selectedItems: {this.state.selectedItems.map((x)=>x.name +', ')}
+          </div>
+          <div>
+            <WheelPicker
+              items={this.state.items}
+              selectedIndexCallback={this.handleSelection}
+              />
+          </div>
         </div>
       </div>
     )
