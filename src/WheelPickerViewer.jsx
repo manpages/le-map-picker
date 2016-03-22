@@ -66,7 +66,7 @@ var WheelPickerViewer = React.createClass({
               />
           </div>
           <br/>
-          <div>Selected items:</div>
+          <div>Selected:</div>
           <br/>
           <div>
             {
