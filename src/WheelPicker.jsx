@@ -21,7 +21,13 @@ var WheelPicker = React.createClass({
   },
 
   movePosition() {
-    var top = this.state.top +this.state.speed
+    var elemH = this.state.elemH
+    var length = this.state.items.length -1
+
+    var top = this.state.top -this.state.speed
+    var height = elemH*length
+
+    if (top < -height) top += height
     this.setState({top})
   },
 
@@ -50,7 +56,7 @@ var WheelPicker = React.createClass({
     var length = this.state.items.length
     var height = this.state.elemH *length
     var position = this.state.top %height
-    return Math.round(position /height*length) %length
+    return Math.abs(Math.round(position /height*length) %length)
   },
 
   render() {
