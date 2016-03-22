@@ -33,6 +33,20 @@ var WheelPickerViewer = React.createClass({
   },
 
   render() {
+    var koreaHeight = 200
+    var koreaStyle = {
+      height: koreaHeight,
+      position: 'fixed',
+      top: (window.innerHeight -koreaHeight) /2,
+      left: koreaHeight/7,
+    }
+    var afreecaHeight = 40
+    var afreecaStyle = {
+      height: afreecaHeight,
+      position: 'fixed',
+      top: (window.innerHeight -afreecaHeight) /2,
+      left: window.innerWidth -afreecaHeight*7
+    }
 
     return (
       <div style={{textAlign: 'center'}}>
@@ -58,6 +72,9 @@ var WheelPickerViewer = React.createClass({
               })
             }
           </div>
+
+          <img style={koreaStyle} src={this.getSrcPath('korea.jpg')} />
+          <img style={afreecaStyle} src={this.getSrcPath('afreeca.tv.png')} />
 
         </div>
       </div>
