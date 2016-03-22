@@ -17,6 +17,7 @@ var WheelPickerViewer = React.createClass({
 
   componentDidMount() {
     document.body.style.backgroundColor = 'black'
+    document.body.style.color = '#88B'
   },
 
   handleSelection(selectedIndex) {
@@ -51,17 +52,23 @@ var WheelPickerViewer = React.createClass({
     return (
       <div style={{textAlign: 'center'}}>
         <div style={{display: 'inline-block'}}>
+          <div>Le Map Picker</div>
+          <br/>
           <div>
-            Le Map Picker
+            <span>Spin: <span style={{color: 'white'}}>Space</span></span> -
+            <span> Select: <span style={{color: 'white'}}>Enter</span></span>
           </div>
+          <br/>
           <div>
             <WheelPicker
               items={this.state.items}
               selectedIndexCallback={this.handleSelection}
               />
           </div>
+          <br/>
+          <div>Selected items:</div>
+          <br/>
           <div>
-            selectedItems:
             {
               this.state.selectedItems.map((x, i)=>{
                 return (
