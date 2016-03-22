@@ -3,35 +3,14 @@ var WheelPicker = require('./WheelPicker.jsx')
 
 var WheelPickerViewer = React.createClass({
   getInitialState() {
-    var items = [
-      {
-        src: this.getSrcPath('Dusk_Towers'),
-        name: 'Dusk Towers'
-      },
-      {
-        src: this.getSrcPath('Orbital_Shipyard'),
-        name: 'Orbital Shipyard'
-      },
-      {
-        src: this.getSrcPath('Prion_Terraces'),
-        name: 'Prion Terraces'
-      },
-      {
-        src: this.getSrcPath('Ulrena'),
-        name: 'Ulrena'
-      },
-      {
-        src: this.getSrcPath('Central_Protocol'),
-        name: 'Central Protocol'
-      },
-      {
-        src: this.getSrcPath('Lerilak_Crest'),
-        name: 'Lerilak Crest'
-      },
-      {
-        src: this.getSrcPath('Ruins_of_Seras'),
-        name: 'Ruins of Seras'
-      }
+    items = [
+      {src: this.getSrcPath('Dusk_Towers'),       name: 'Dusk Towers'},
+      {src: this.getSrcPath('Orbital_Shipyard'),  name: 'Orbital Shipyard'},
+      {src: this.getSrcPath('Prion_Terraces'),    name: 'Prion Terraces'},
+      {src: this.getSrcPath('Ulrena'),            name: 'Ulrena'},
+      {src: this.getSrcPath('Central_Protocol'),  name: 'Central Protocol'},
+      {src: this.getSrcPath('Lerilak_Crest'),     name: 'Lerilak Crest'},
+      {src: this.getSrcPath('Ruins_of_Seras'),    name: 'Ruins of Seras'},
     ]
     return {items, selectedItems: []}
   },
