@@ -53,7 +53,15 @@ var WheelPicker = React.createClass({
   },
 
   setItems(propsItems) {
-    this.setState({items: propsItems.slice(0)})
+    this.setState({
+      items: propsItems.slice(0),
+      top: 0,
+    })
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.items != this.props.items)
+      this.setItems(nextProps.items)
   },
 
   getCurrentIndex() {
