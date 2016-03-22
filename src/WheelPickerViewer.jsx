@@ -3,14 +3,6 @@ var WheelPicker = require('./WheelPicker.jsx')
 
 var WheelPickerViewer = React.createClass({
   getInitialState() {
-    return {selectedIndex: undefined}
-  },
-
-  getSrcPath(name) {
-    return '/src/images/400px-' +name +'.jpg'
-  },
-
-  render() {
     var items = [
       {
         src: this.getSrcPath('Dusk_Towers'),
@@ -41,19 +33,35 @@ var WheelPickerViewer = React.createClass({
         name: 'Ruins of Seras'
       }
     ]
+    return {items, selectedItems: []}
+  },
 
+  handleSelection(selectedIndex) {
+    var items = this.state.items.slice(0)
+    var selected = items[selectedIndex]
+    items.splice(selectedIndex, 1)
+    var selectedItems = this.state.selectedItems.slice(0)
+    selectedItems.push(selected)
+    this.setState({items, selectedItems})
+  },
+
+  getSrcPath(name) {
+    return '/src/images/400px-' +name +'.jpg'
+  },
+
+  render() {
     return (
       <div>
         <div>
           Le Map Picker
         </div>
         <div>
-          Selected Map: {this.state.selectedIndex !== undefined ? items[this.state.selectedIndex].name : undefined}
+          selectedItems: {this.state.selectedItems.map((x)=>x.name +', ')}
         </div>
         <div>
           <WheelPicker
-            items={items}
-            selectedIndexCallback={(selectedIndex)=>{this.setState({selectedIndex})}}
+            items={this.state.items}
+            selectedIndexCallback={this.handleSelection}
             />
         </div>
       </div>
