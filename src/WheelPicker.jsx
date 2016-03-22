@@ -18,8 +18,6 @@ var WheelPicker = React.createClass({
     var currentIndex = this.getCurrentIndex()
     var top = currentIndex *-this.state.elemH
 
-    if ( !spinning )
-      this.props.selectedIndexCallback(currentIndex)
     this.setState({speed, spinning, top})
   },
 
@@ -39,6 +37,9 @@ var WheelPicker = React.createClass({
 
     if (e.keyCode == '32') //space
       this.toggleSpin()
+
+    if (e.keyCode == '13') //enter
+      this.props.selectedIndexCallback(this.getCurrentIndex())
   },
 
   componentDidMount() {
