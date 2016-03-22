@@ -1,0 +1,30 @@
+{
+  "name": "react-item-picker",
+  "version": "1.2.2",
+  "description": "ReactJS item picker",
+  "author": "Reslav Hollos",
+  "license": "MIT",
+  "main": "./exports.js",
+  "scripts": {
+    "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.js --progress --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Radivarig/react-item-picker.git"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^1.9.0"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "react-component"
+  ],
+  "peerDependencies": {
+    "react": ">=0.14.1",
+    "react-dom": ">=0.14.1"
+  },
+  "dependencies": {
+    "jsx-loader": "^0.13.x"
+  }
+}
