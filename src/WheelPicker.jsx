@@ -5,6 +5,7 @@ var WheelPicker = React.createClass({
     return {
       elemH: 500,
       imageH: 400,
+      betweenElementSpace: 20,
       speed: 0,
       top: 0,
       items: [],
@@ -88,7 +89,7 @@ var WheelPicker = React.createClass({
     }
     var itemStyle = {
       position: 'absolute',
-      height: this.state.elemH -8,
+      height: this.state.elemH -this.state.betweenElementSpace,
       width: this.state.imageH,
 
       border: 'solid blue 1px',
@@ -112,6 +113,7 @@ var WheelPicker = React.createClass({
           this.state.items.map((x, i)=>{
 
             var top = (this.state.top +(i+1)*elemH) %(length *elemH) +(length == 1 ? 0: -elemH)
+            top += this.state.betweenElementSpace /2 -1
             return (
               <div key={i}>
 
