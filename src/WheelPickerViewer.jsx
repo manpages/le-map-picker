@@ -41,14 +41,24 @@ var WheelPickerViewer = React.createClass({
             Le Map Picker
           </div>
           <div>
-            selectedItems: {this.state.selectedItems.map((x)=>x.name +', ')}
-          </div>
-          <div>
             <WheelPicker
               items={this.state.items}
               selectedIndexCallback={this.handleSelection}
               />
           </div>
+          <div>
+            selectedItems:
+            {
+              this.state.selectedItems.map((x, i)=>{
+                return (
+                  <div key={i} style={{color: 'cyan', fontWeight: 'bold'}}>
+                    {x.name}
+                  </div>
+                )
+              })
+            }
+          </div>
+
         </div>
       </div>
     )
