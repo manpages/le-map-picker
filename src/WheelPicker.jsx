@@ -105,6 +105,10 @@ var WheelPicker = React.createClass({
       height: 'auto',
     }
 
+    if (this.state.spinning)
+      itemStyle.filter =
+      itemStyle.WebkitFilter = 'blur(5px)'
+
     var elemH = this.state.elemH
     var length = this.state.items.length
     return (
