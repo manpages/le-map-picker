@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "./exports.js",
   "scripts": {
-    "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.js --progress --colors --host 0.0.0.0"
+    "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.js --progress --colors --host 0.0.0.0",
     "build": "./node_modules/webpack/bin/webpack.js --build --config webpack.config.js --progress --colors"
   },
   "repository": {
