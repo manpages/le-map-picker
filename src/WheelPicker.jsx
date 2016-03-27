@@ -5,54 +5,76 @@ var WheelPicker = React.createClass({
     return {
       elemH: 500,
       imageH: 400,
+      betweenElementSpace: 20,
       speed: 0,
       top: 0,
       items: [],
       spinning: false,
+      spinningStartTs: undefined,
     }
   },
 
   toggleSpin() {
     var spinning = !this.state.spinning
-    var speed = spinning ? 50 : 0
+    var spinningStartTs = spinning ? new Date().getTime() : undefined
+    var speed = spinning ? 5 : 0
     var currentIndex = this.getCurrentIndex()
     var top = currentIndex *-this.state.elemH
-
-    if ( !spinning )
-      this.props.selectedIndexCallback(currentIndex)
-    this.setState({speed, spinning, top})
+    this.setState({speed, spinning, spinningStartTs, top}, this.handleSpinning)
   },
 
-  movePosition() {
+  handleSpinning() {
+    if ( !this.isMounted() ) return
+    if ( !this.state.spinning ) return
+    if (this.state.items.length == 1) return
+
     var elemH = this.state.elemH
     var length = this.state.items.length -1
 
-    var top = this.state.top -this.state.speed
+    var timestamp = new Date().getTime() -this.state.spinningStartTs
+    var top = this.state.speed *timestamp
     var height = elemH*length
 
     if (top < -height) top += height
     this.setState({top})
+
+    setTimeout(this.handleSpinning, 20)
   },
 
   handleShortcuts: function handleShortcuts(e) {
     if (document.activeElement.tagName !== 'BODY') return
 
     if (e.keyCode == '32') //space
-      this.toggleSpin()
+      if (this.state.items.length != 1 || this.state.spinning)
+        this.toggleSpin()
+
+    if (e.keyCode == '13') //enter
+      if (this.state.items.length > 0 && !this.state.spinning ) {
+        this.props.selectedIndexCallback(this.getCurrentIndex())
+        if (this.state.items.length != 1)
+          this.toggleSpin()
+      }
   },
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleShortcuts)
-    this.setItems(this.props.items)
-    setInterval(this.movePosition, 10)
+    this.setItems(this.props.items, this.toggleSpin)
   },
 
   componentWillUnmount: function componentWillUnmount() {
     document.removeEventListener('keydown', this.handleShortcuts)
   },
 
-  setItems(propsItems) {
-    this.setState({items: propsItems.slice(0)})
+  setItems(propsItems, cb) {
+    this.setState({
+      items: propsItems.slice(0),
+      top: 0,
+    }, cb)
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.items != this.props.items)
+      this.setItems(nextProps.items)
   },
 
   getCurrentIndex() {
@@ -74,7 +96,7 @@ var WheelPicker = React.createClass({
     }
     var itemStyle = {
       position: 'absolute',
-      height: this.state.elemH -8,
+      height: this.state.elemH -this.state.betweenElementSpace,
       width: this.state.imageH,
 
       border: 'solid blue 1px',
@@ -90,13 +112,19 @@ var WheelPicker = React.createClass({
       height: 'auto',
     }
 
+    if (this.state.spinning)
+      itemStyle.filter =
+      itemStyle.WebkitFilter = 'blur(5px)'
+
     var elemH = this.state.elemH
+    var length = this.state.items.length
     return (
       <div style={parentStyle}>
         {
           this.state.items.map((x, i)=>{
 
-            var top = (this.state.top +(i+1)*elemH) %(this.state.items.length *elemH)  -elemH
+            var top = (this.state.top +(i+1)*elemH) %(length *elemH) +(length == 1 ? 0: -elemH)
+            top += this.state.betweenElementSpace /2 -1
             return (
               <div key={i}>
 
